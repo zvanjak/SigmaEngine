@@ -4,31 +4,40 @@ SigmaEngine releases are published on the GitHub Releases page:
 
 <https://github.com/zvanjak/SigmaEngine/releases>
 
-## macOS Apple Silicon
+Each release includes the available platform packages, `SHA256SUMS.txt`, and release notes.
 
-The current macOS package is built for Apple Silicon:
+## Download
 
-```text
-SigmaEngine-v0.1.0-macOS-arm64.dmg
-```
+1. Open the latest SigmaEngine release.
+2. Download the package for your platform.
+3. Download `SHA256SUMS.txt` from the same release.
+4. Verify the checksum before installing.
 
-1. Download the DMG from the `v0.1.0` release page.
-2. Download `SHA256SUMS.txt` from the same release.
-3. Verify the checksum:
+## Verify Checksums
+
+### macOS Or Linux
 
 ```bash
-shasum -a 256 SigmaEngine-v0.1.0-macOS-arm64.dmg
+shasum -a 256 <downloaded-file>
 cat SHA256SUMS.txt
 ```
 
-The checksum output for the DMG should match the line in `SHA256SUMS.txt`.
+The checksum output for the downloaded file should match the corresponding line in `SHA256SUMS.txt`.
 
-4. Open the DMG.
-5. Drag `SigmaGUI.app` to `Applications`, or run it from the mounted DMG for a quick test.
+### Windows PowerShell
 
-## First Launch On macOS
+```powershell
+Get-FileHash .\<downloaded-file> -Algorithm SHA256
+Get-Content .\SHA256SUMS.txt
+```
 
-The current macOS build is unsigned and not notarized. If macOS blocks the first launch:
+The hash output for the downloaded file should match the corresponding line in `SHA256SUMS.txt`.
+
+## macOS
+
+Download the DMG package, open it, then drag `SigmaGUI.app` to `Applications`, or run it directly from the mounted DMG for a quick test.
+
+The current macOS build may be unsigned and not notarized. If macOS blocks the first launch:
 
 1. Open `System Settings`.
 2. Go to `Privacy & Security`.
@@ -39,11 +48,22 @@ You can also Control-click `SigmaGUI.app`, choose `Open`, and confirm the launch
 
 ## Windows
 
-Windows packages are planned but not published yet.
+Download the MSI package and run it from File Explorer. If Windows SmartScreen warns about an unsigned or new publisher package, verify the checksum first and then choose the manual run option only if it matches the release checksum.
 
-## Linux
+## Ubuntu Linux
 
-Linux packages are planned but not published yet. The package format has not been finalized.
+Download the DEB package and install it with `apt` or `dpkg`:
+
+```bash
+sudo apt install ./SigmaEngine-*.deb
+```
+
+If you use `dpkg` directly and dependency installation is needed, run:
+
+```bash
+sudo dpkg -i ./SigmaEngine-*.deb
+sudo apt -f install
+```
 
 ## Reporting Problems
 
